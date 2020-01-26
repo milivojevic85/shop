@@ -68,8 +68,8 @@ class CDProduct extends ShopProduct
 $book1 = new BookProduct("The Karamazov Brothers", "Fyodor", "Dostoevsky", 7.99, 870 );
 $cd1 = new CDProduct("Live Paris", "Ben", "L'oncle Soul", 8.99, 152 );
 
-echo $book1->write();
-echo $cd1->write();
+echo $book1->write(); // The Karamazov Brothers by Fyodor Dostoevsky (7.99), page count - 870
+echo $cd1->write(); // Live Paris by Ben L'oncle Soul (8.99), playing time - 152
 
 ?>
 </body>
