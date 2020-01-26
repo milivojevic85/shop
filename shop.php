@@ -8,9 +8,9 @@
 <?php 
 class ShopProduct 
 {
-	public $title = "default product";
-	public $producerMainName = "main name";
-	public $producerFirstName = "first name";
+	public $title;
+	public $producerMainName;
+	public $producerFirstName;
 	public $price = 0;
 	
 	public function __construct($title, $firstName, $mainName, $price) {
@@ -21,12 +21,22 @@ class ShopProduct
 	}
 	
 	public function getProducer() {
-		return $this->producerFirstName." ".$this->producerMainName."<br>";
+		return $this->producerFirstName." ".$this->producerMainName;
+	}
+}
+
+class ShopProductWriter
+{
+	public function write(ShopProduct $shopProduct) {
+		$str = $shopProduct->title." : ".$shopProduct->getProducer()." (".$shopProduct->price.")";
+		echo $str."<br>";
 	}
 }
 
 $product1 = new ShopProduct("My Antonia", "Willa", "Cather", 5.99);
-echo $product1->getProducer()."<br>"; // Willa Cather
+$writer = new ShopProductWriter();
+$writer->write($product1); // My Antonia : Willa Cather (5.99)
+
 ?>
 </body>
 </html>
