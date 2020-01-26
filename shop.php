@@ -8,10 +8,11 @@
 <?php 
 class ShopProduct 
 {
-	public $title;
-	public $producerMainName;
-	public $producerFirstName;
-	public $price = 0;
+	private $title;
+	private $producerMainName;
+	private $producerFirstName;
+	protected $price;
+	protected $discount = 0;
 	
 	public function __construct($title, $firstName, $mainName, $price) {
 		$this->title = $title;
@@ -19,19 +20,28 @@ class ShopProduct
 		$this->producerMainName = $mainName;
 		$this->price = $price;
 	}
-	
+	public function setDiscount($discount) {
+		$this->discount = $discount;
+	}
+	public function getDiscount() {
+		return $this->discount;
+	}
+	public function getPrice() {
+		$newPrice = $this->price - $this->discount;
+		return $newPrice;
+	}
 	public function getProducer() {
 		return $this->producerFirstName." ".$this->producerMainName;
 	}
 	public function write() {
-		$str = $this->title." by ".$this->getProducer()." (".$this->price.")";
+		$str = $this->title." by ".$this->getProducer()." (".$this->getPrice().")";
 		echo $str;
 	}
 }
 
 class BookProduct extends ShopProduct
 {
-	public $numPages;
+	private $numPages;
 	
 	public function __construct($title, $firstName, $mainName, $price, $numPages) {
 		parent::__construct($title, $firstName, $mainName, $price);
@@ -49,7 +59,7 @@ class BookProduct extends ShopProduct
 
 class CDProduct extends ShopProduct
 {
-	public $playLength;
+	private $playLength;
 	
 	public function __construct($title, $firstName, $mainName, $price, $playLength) {
 		parent::__construct($title, $firstName, $mainName, $price);
@@ -68,7 +78,8 @@ class CDProduct extends ShopProduct
 $book1 = new BookProduct("The Karamazov Brothers", "Fyodor", "Dostoevsky", 7.99, 870 );
 $cd1 = new CDProduct("Live Paris", "Ben", "L'oncle Soul", 8.99, 152 );
 
-echo $book1->write(); // The Karamazov Brothers by Fyodor Dostoevsky (7.99), page count - 870
+echo $book1->setDiscount(2);
+echo $book1->write(); // The Karamazov Brothers by Fyodor Dostoevsky (5.99), page count - 870
 echo $cd1->write(); // Live Paris by Ben L'oncle Soul (8.99), playing time - 152
 
 ?>
