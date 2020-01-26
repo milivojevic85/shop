@@ -30,6 +30,9 @@ class ShopProduct
 		$newPrice = $this->price - $this->discount;
 		return $newPrice;
 	}
+	public function getTitle() {
+		return $this->title;
+	}
 	public function getProducer() {
 		return $this->producerFirstName." ".$this->producerMainName;
 	}
@@ -75,6 +78,20 @@ class CDProduct extends ShopProduct
 	}
 }
 
+class ShopProductWriter
+{
+	private $products = [];
+	public function addProduct(ShopProduct $shopProduct) {
+		$this->products[] = $shopProduct;
+	}
+	public function show() {
+		foreach ($this->products as $shopProduct) {
+			$shopProduct->write();
+			echo "<br>";
+		}
+	}
+}
+
 $book1 = new BookProduct("The Karamazov Brothers", "Fyodor", "Dostoevsky", 7.99, 870 );
 $cd1 = new CDProduct("Live Paris", "Ben", "L'oncle Soul", 8.99, 152 );
 
@@ -82,6 +99,11 @@ echo $book1->setDiscount(2);
 echo $book1->write(); // The Karamazov Brothers by Fyodor Dostoevsky (5.99), page count - 870
 echo $cd1->write(); // Live Paris by Ben L'oncle Soul (8.99), playing time - 152
 
-?>
+$presenter = new ShopProductWriter();
+$presenter->addProduct($book1);
+$presenter->addProduct($cd1);
+$presenter->show(); // The Karamazov Brothers by Fyodor Dostoevsky (5.99)
+                    // Live Paris by Ben L'oncle Soul (8.99)
+?>                  
 </body>
 </html>
