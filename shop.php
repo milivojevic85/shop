@@ -24,16 +24,52 @@ class ShopProduct
 		return $this->producerFirstName." ".$this->producerMainName;
 	}
 	public function write() {
-		$str = $this->title." : ".$this->getProducer()." (".$this->price.")";
-		echo $str."<br>";
+		$str = $this->title." by ".$this->getProducer()." (".$this->price.")";
+		echo $str;
 	}
 }
 
-$product1 = new ShopProduct("My Antonia", "Willa", "Cather", 5.99);
-$product2 = new ShopProduct("Exile on Coldharbour Lane", "The", "Alabama 3", 10.99);
+class BookProduct extends ShopProduct
+{
+	public $numPages;
+	
+	public function __construct($title, $firstName, $mainName, $price, $numPages) {
+		parent::__construct($title, $firstName, $mainName, $price);
+		$this->numPages = $numPages;
+	}
+	public function getNumberOfPages() {
+		return $this->numPages;
+	}
+	public function write() {
+		$str = parent::write();
+		$str .=", page count - ".$this->numPages;
+		return $str."<br>";
+	}
+}
 
-$product1->write(); // My Antonia : Willa Cather (5.99)
+class CDProduct extends ShopProduct
+{
+	public $playLength;
+	
+	public function __construct($title, $firstName, $mainName, $price, $playLength) {
+		parent::__construct($title, $firstName, $mainName, $price);
+		$this->playLength = $playLength;
+	}
+	public function getPlayLength() {
+		return $this->playLength;
+	}
+	public function write() {
+		$str = parent::write();
+		$str .=", playing time - ".$this->playLength;
+		return $str."<br>";
+	}
+}
 
+$book1 = new BookProduct("The Karamazov Brothers", "Fyodor", "Dostoevsky", 7.99, 870 );
+$cd1 = new CDProduct("Live Paris", "Ben", "L'oncle Soul", 8.99, 152 );
+
+echo $book1->write();
+echo $cd1->write();
 
 ?>
 </body>
