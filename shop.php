@@ -23,19 +23,17 @@ class ShopProduct
 	public function getProducer() {
 		return $this->producerFirstName." ".$this->producerMainName;
 	}
-}
-
-class ShopProductWriter
-{
-	public function write(ShopProduct $shopProduct) {
-		$str = $shopProduct->title." : ".$shopProduct->getProducer()." (".$shopProduct->price.")";
+	public function write() {
+		$str = $this->title." : ".$this->getProducer()." (".$this->price.")";
 		echo $str."<br>";
 	}
 }
 
 $product1 = new ShopProduct("My Antonia", "Willa", "Cather", 5.99);
-$writer = new ShopProductWriter();
-$writer->write($product1); // My Antonia : Willa Cather (5.99)
+$product2 = new ShopProduct("Exile on Coldharbour Lane", "The", "Alabama 3", 10.99);
+
+$product1->write(); // My Antonia : Willa Cather (5.99)
+
 
 ?>
 </body>
